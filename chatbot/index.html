@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Molle&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infra - Your AI Assistant</title>
+    <script src="https://path-to-your-chatbot-script.js" async></script>
+    <style>
+      /* Chatbot Styles */
+      #chatbot-widget {
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        width: 340px;
+        max-height: 450px;
+        background-color: #d0cdc4;
+        color: #212529;
+        border-radius: 10px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        z-index: 9999;
+      }
+
+      /* Open Animation */
+      #chatbot-widget.open {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      /* Chatbot Toggle Image */
+      #chatbot-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: none; /* Removed background */
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      /* Adjust Image Size */
+      #chatbot-toggle img {
+        width: 70px; /* Adjust as needed */
+        height: auto;
+      }
+
+      /* Hover Effect */
+      #chatbot-toggle:hover {
+        transform: scale(1.1);
+      }
+
+      /* Chatbot Header */
+      #chatbot-header {
+        background: #222222;
+        color: #ffffff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      /* Chatbot Messages */
+      #chatbot-messages {
+        max-height: 250px;
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #ffffff;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+      }
+
+      
+      
+
+      /* Messages */
+      .bot-message {
+        margin: 8px 0;
+        padding: 10px;
+        border-radius: 5px;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.5s ease forwards;
+      }
+
+      /* User & Bot Message Colors */
+      .bot-message {
+        background-color: #f1f1f1;
+        padding: 8px;
+        margin: 5px;
+        border-radius: 10px;
+      }
+
+      .user-message {
+        background-color: #007bff;
+        color: white;
+        padding: 8px;
+        margin: 5px;
+        border-radius: 10px;
+        text-align: right;
+      }
+
+      /* Message Fade-in Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Predefined Question Buttons */
+      .question-btn {
+        display: block;
+        padding: 8px 12px;
+        margin: 5px 0;
+        background: #0bbfe8;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      .question-btn:hover {
+        background: #d0cecb;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Chatbot Toggle Image -->
+    <button id="chatbot-toggle">
+      <img src="img/1.png" alt="Infra Assistant" />
+    </button>
+
+    <!-- Chatbot Container -->
+    <div id="chatbot-widget" class="chatbot">
+      <div id="chatbot-header">
+        <h3>INFRA</h3>
+        <button id="close-chatbot">X</button>
+      </div>
+      <div id="chatbot-messages"></div>
+      <div id="predefined-questions"></div>
+      
+    </div>
+
+    <script>
+      // Get Elements
+      const chatbotToggle = document.getElementById("chatbot-toggle");
+      const chatbotWidget = document.getElementById("chatbot-widget");
+      const closeChatbotButton = document.getElementById("close-chatbot");
+      const messagesContainer = document.getElementById("chatbot-messages");
+      const chatbotInput = document.getElementById("chatbot-input");
+      const predefinedQuestionsContainer = document.getElementById(
+        "predefined-questions"
+      );
+
+      // Ensure Chatbot is Hidden Initially
+      chatbotWidget.style.display = "none";
+
+      // Handle Chatbot Toggle
+      chatbotToggle.addEventListener("click", () => {
+        if (!chatbotWidget.classList.contains("open")) {
+          chatbotWidget.style.display = "flex";
+          setTimeout(() => chatbotWidget.classList.add("open"), 10);
+          greetUser();
+        } else {
+          chatbotWidget.classList.remove("open");
+          setTimeout(() => (chatbotWidget.style.display = "none"), 500);
+        }
+      });
+
+      // Close Chatbot
+      closeChatbotButton.addEventListener("click", () => {
+        chatbotWidget.classList.remove("open");
+        setTimeout(() => (chatbotWidget.style.display = "none"), 500);
+      });
+
+      // Display Greeting Message
+      function greetUser() {
+        displayMessage(
+          "Hi! I'm Infra, your friend from EInfratech. How can I assist you today?",
+          "bot"
+        );
+        loadPredefinedQuestions();
+      }
+
+      // Load Predefined Questions
+      function loadPredefinedQuestions() {
+        predefinedQuestionsContainer.innerHTML = "";
+        const questions = [
+          "What services do you offer?",
+          "How can I contact EInfratech?",
+          "Tell me about EInfratech.",
+          "What industries do you serve?",
+        ];
+
+        questions.forEach((q) => {
+          let btn = document.createElement("button");
+          btn.className = "question-btn";
+          btn.textContent = q;
+          btn.onclick = () => {
+            displayMessage(q, "user");
+            setTimeout(() => displayMessage(generateBotReply(q), "bot"), 500);
+          };
+          predefinedQuestionsContainer.appendChild(btn);
+        });
+      }
+
+      // Handle Enter Key for Input
+      chatbotInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter" && chatbotInput.value.trim()) {
+          let userText = chatbotInput.value.trim();
+          displayMessage(userText, "user");
+          chatbotInput.value = "";
+
+          setTimeout(() => {
+            displayMessage(generateBotReply(userText), "bot");
+          }, 500);
+        }
+      });
+
+      // Display Messages
+      function displayMessage(text, sender) {
+        let msg = document.createElement("div");
+        msg.className = sender === "user" ? "user-message" : "bot-message";
+        msg.innerText = text;
+        messagesContainer.appendChild(msg);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      // Bot Replies
+      function generateBotReply(userText) {
+        const replies = {
+          "what services do you offer?":
+            "We specialize in IoT, AI, cloud computing, and smart infrastructure solutions.",
+          "how can i contact einfratech?":
+            "You can reach us via email at info@einfratechsys.com or visit our website: einfratechsys.com.",
+          "tell me about einfratech.":
+            "EInfratech is a leading technology provider focused on IoT, AI, and infrastructure solutions.",
+          "what industries do you serve?":
+            "We serve industries like manufacturing, healthcare, transportation, and smart cities.",
+        };
+        return replies[userText.toLowerCase()] || "I'm here to help!";
+      }
+    </script>
+  </body>
+</html>
