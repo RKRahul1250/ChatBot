@@ -1,0 +1,133 @@
+/* Chatbot Styles */
+#chatbot-widget {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 340px;
+    max-height: 450px;
+    background-color: #d0cdc4;
+    color: #212529;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 9999;
+  }
+  
+  /* Open Animation */
+  #chatbot-widget.open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  
+  /* Chatbot Toggle Image */
+  #chatbot-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Adjust Image Size */
+  #chatbot-toggle img {
+    width: 70px;
+    height: auto;
+  }
+  
+  /* Hover Effect */
+  #chatbot-toggle:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Chatbot Header */
+  #chatbot-header {
+    background: #222222;
+    color: #ffffff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Chatbot Messages */
+  #chatbot-messages {
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Messages */
+  .bot-message {
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  /* User & Bot Message Colors */
+  .bot-message {
+    background-color: #f1f1f1;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 10px;
+  }
+  
+  .user-message {
+    background-color: #007bff;
+    color: white;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 10px;
+    text-align: right;
+  }
+  
+  /* Message Fade-in Animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
+  #chatbot-toggle img {
+    width: 70px; /* Adjust size */
+    height: auto;
+    display: block;
+  }
+  
+  /* Predefined Question Buttons */
+  .question-btn {
+    display: block;
+    padding: 8px 12px;
+    margin: 5px 0;
+    background: #0bbfe8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .question-btn:hover {
+    background: #d0cecb;
+  }
+  
