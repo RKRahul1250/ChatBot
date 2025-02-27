@@ -83,15 +83,37 @@
 
 /* Chatbot Header */
 #chatbot-header {
-  background: #222222;
+  background: #81dfee;
   color: #ffffff;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  position: relative; /* Allows button positioning */
 }
+
+/* Ensure the close button stays on the right */
+#close-chatbot {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Apply Molle font to INFRA */
+#chatbot-header h3 {
+  font-family: 'Molle', cursive;
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+
 
 /* Chatbot Messages */
 #chatbot-messages {
@@ -114,21 +136,40 @@
 }
 
 /* User & Bot Message Colors */
+/* Bot and User Messages */
 .bot-message {
   background-color: #f1f1f1;
   padding: 8px;
-  margin: 5px;
+  margin: 0px 0; /* Adds spacing above and below */
   border-radius: 10px;
+  max-width: 80%;
+  align-self: flex-start; /* Align bot messages to the left */
 }
 
 .user-message {
   background-color: #007bff;
   color: white;
   padding: 8px;
-  margin: 5px;
+  margin: 10px 0; /* Adds spacing above and below */
   border-radius: 10px;
+  max-width: 80%;
   text-align: right;
+  align-self: flex-end; /* Align user messages to the right */
 }
+
+/* Chatbot Messages Container */
+#chatbot-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Adds space between messages */
+  padding: 10px;
+  max-height: 1000px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
 
 /* Message Fade-in Animation */
 @keyframes fadeInUp {
@@ -141,6 +182,14 @@
     transform: translateY(0);
   }
 }
+
+
+/* Predefined Questions Section */
+#predefined-questions {
+  background-color: #ffffffa0; /* Change this to your desired color */
+ 
+}
+
 
 /* Predefined Question Buttons */
 .question-btn {
@@ -156,7 +205,7 @@
 }
 
 .question-btn:hover {
-  background: #d0cecb;
+  background: #d0ceca00;
 }
 
 /* Pop-up Messages Container */
@@ -201,6 +250,9 @@
   display: flex;
 }
 
+
+
+
 /* Predefined Questions Container */
 .question-container {
   display: flex;
@@ -210,10 +262,13 @@
   justify-content: center;
 }
 
+
+
+
 /* Predefined Question Buttons */
 .question-btn {
-  background: #0bbfe8;
-  color: white;
+  background: #10c1e9;
+  color: rgb(255, 255, 255);
   border: none;
   padding: 8px 12px;
   font-size: 14px;

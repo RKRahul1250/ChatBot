@@ -10,13 +10,13 @@ const messagesContainer = document.createElement("div");
 popupMessagesContainer.id = "popup-messages";
 document.body.appendChild(popupMessagesContainer);
 
-// Set up Predefined Questions Container
-predefinedQuestionsContainer.id = "predefined-questions";
-chatbotWidget.appendChild(predefinedQuestionsContainer);
-
-// Set up Messages Container
+// Set up Messages Container (Now Placed Above Questions)
 messagesContainer.id = "chatbot-messages";
 chatbotWidget.appendChild(messagesContainer);
+
+// Set up Predefined Questions Container (Now Below Messages)
+predefinedQuestionsContainer.id = "predefined-questions";
+chatbotWidget.appendChild(predefinedQuestionsContainer);
 
 // Function to Show Pop-up Messages on Hover
 function showPopupMessages() {
@@ -68,7 +68,7 @@ closeChatbotButton.addEventListener("click", () => {
   setTimeout(() => (chatbotWidget.style.display = "none"), 500);
 });
 
-// Function to Load Predefined Questions as Buttons
+// Function to Load Predefined Questions as Buttons (Now Below Chat Space)
 function loadPredefinedQuestions() {
   predefinedQuestionsContainer.innerHTML = ""; // Clear previous questions
   predefinedQuestionsContainer.classList.add("question-container");
@@ -91,6 +91,8 @@ function loadPredefinedQuestions() {
     predefinedQuestionsContainer.appendChild(btn);
   });
 }
+
+
 
 // Function to Display Messages in Chatbot
 function displayMessage(text, sender) {
