@@ -54,10 +54,12 @@
   position: fixed;
   bottom: 100px;
   right: 100px;
-  display: none;
+  display: flex; /* ✅ Ensure it's visible */
   flex-direction: column;
   align-items: flex-end;
   z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out; /* ✅ Smooth fade-in */
 }
 
 .popup-message {
@@ -68,13 +70,28 @@
   border-radius: 10px;
   opacity: 0;
   transform: translateY(10px);
-  animation: fadeInUp 0.5s ease forwards;
+  animation: fadeInUp 0.4s ease-in-out forwards;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Second message should appear more smoothly */
 .popup-message:nth-child(2) {
-  animation-delay: 0.5s;
+  animation-delay: 0.3s;
 }
+
+/* Fade-in Animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 /* Chatbot Toggle Hover Effect */
 #chatbot-toggle:hover + #popup-messages {
@@ -107,11 +124,12 @@
 
 /* Apply Molle font to INFRA */
 #chatbot-header h3 {
-  font-family: 'Molle', cursive;
+  font-family: 'Motley Forces', cursive;
   margin: 0;
   flex-grow: 1;
   text-align: center;
 }
+
 
 
 
@@ -161,14 +179,19 @@
 #chatbot-messages {
   display: flex;
   flex-direction: column;
+
+  flex-grow: 1;  /* Ensures it expands */
   gap: 12px; /* Adds space between messages */
   padding: 10px;
-  max-height: 1000px;
+  min-height: -1000px; /* Prevents it from shrinking too much */
+  max-height: 400px; /* Keeps it from taking over the chat */
+  
   overflow-y: auto;
   background-color: #ffffff;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
+
 
 
 /* Message Fade-in Animation */
@@ -186,27 +209,63 @@
 
 /* Predefined Questions Section */
 #predefined-questions {
-  background-color: #ffffffa0; /* Change this to your desired color */
- 
+  
+  padding: 10px;
+  min-height: 150px; /* Ensures section doesn't shrink */
+  max-height: 200px; /* Prevents excessive height */
+  overflow-y: auto; /* Enables scrolling if needed */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
+
+
+
+/* Category Buttons */
+.category-btn {
+  background: #ff9800;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  min-width: 180px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 
 
 /* Predefined Question Buttons */
 .question-btn {
-  display: block;
-  padding: 8px 12px;
-  margin: 5px 0;
   background: #0bbfe8;
   color: white;
   border: none;
+  padding: 10px 15px;
+  font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s ease;
+  min-width: 180px;
+  text-align: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.question-btn:hover {
-  background: #d0ceca00;
+/* Back Button */
+.back-btn {
+  background: #666;
 }
+
+.category-btn:hover {
+  background: #e68900;
+  transform: translateY(-2px);
+}
+
 
 /* Pop-up Messages Container */
 #popup-messages {
@@ -260,7 +319,9 @@
   gap: 10px;
   padding: 10px;
   justify-content: center;
+  background-color: #f0f0f0; /* Replace with your desired color */
 }
+
 
 
 
@@ -274,11 +335,12 @@
   font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease-in-out;
   min-width: 150px;
   text-align: center;
 }
 
 .question-btn:hover {
   background: #008fb3;
+  transform: translateY(-2px);
 }
